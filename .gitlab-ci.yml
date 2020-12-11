@@ -71,6 +71,8 @@ git-merge-to-master:
     - cat gitlab-known-hosts >> ~/.ssh/known_hosts
     - echo "$CI_REPOSITORY_URL"
     - echo "$CI_PROJECT_URL"
+    - echo "$CI_PROJECT_PATH"
+    - echo "$CI_PROJECT_PATH_SLUG"
   script:
     - git clone https://${CI_DEPLOY_USER}:${CI_DEPLOY_PASSWORD}:@${CI_REPOSITORY_URL}
     - cd ${CI_PROJECT_NAME}
