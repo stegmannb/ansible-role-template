@@ -75,7 +75,7 @@ git-merge-to-master:
     - ssh-keyscan gitlab.com >> gitlab-known-hosts
     - cat gitlab-known-hosts >> ~/.ssh/known_hosts
   script:
-    - git clone "git@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
+    - git clone "git@${CI_SERVER_HOST}:${CI_PROJECT_PATH}.git"
     - cd ${CI_PROJECT_NAME}
     - git merge origin/dev
     - git push origin master
