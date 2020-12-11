@@ -63,7 +63,7 @@ git-merge-to-master:
   only:
     - dev
   allow_failure: false
-  before_script:    
+  before_script:
     - >-
       which ssh-agent ||
       ( apt-get update -y && apt-get install openssh-client git -y )
