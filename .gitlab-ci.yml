@@ -64,6 +64,8 @@ git-merge-to-master:
     - dev
   allow_failure: false
   before_script:
+    - apt-get update
+    - apt-get install git -y
     - git config --global user.email "robot@leitnet.at"
     - git config --global user.name "Mr. Robot"
     - mkdir -p ~/.ssh
