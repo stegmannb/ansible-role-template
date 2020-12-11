@@ -1,9 +1,7 @@
 # Ansible Template Role
 
-[![pipeline status](https://gitlab.com/ansible44/ansible-role-ssh/badges/master/pipeline.svg)](https://gitlab.com/ansible44/ansible-role-ssh/-/commits/master)
+[![pipeline status](https://gitlab.com/ansible44/ansible-role-template/badges/master/pipeline.svg)](https://gitlab.com/ansible44/ansible-role-template/-/commits/master)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-
-The ansible role installs and configures the SSH on supported systems.
 
 ## Requirements
 
