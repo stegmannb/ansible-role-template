@@ -63,9 +63,12 @@ git-merge-to-master:
   only:
     - dev
   allow_failure: false
-  before_script:
-    - apt-get update
-    - apt-get install git -y
+  before_script:    
+    - >-
+      which ssh-agent ||
+      ( apt-get update -y && apt-get install openssh-client git -y )
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$CI_DEPLOY_KEY")
     - git config --global user.email "robot@leitnet.at"
     - git config --global user.name "Mr. Robot"
     - mkdir -p ~/.ssh
