@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  author: Bastian Stegmann
+  description: Setup and configures SSH on the system.
+  license: MIT
+  min_ansible_version: 2.9
+  galaxy_tags: []
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+    - name: Ubuntu
+      versions:
+        - 20.04
+        - 18.04
+    - name: Fedora
+      versions:
+        - 32
+        - 31
+    - name: CentOS
+      versions:
+        - 8
+
+dependencies: []

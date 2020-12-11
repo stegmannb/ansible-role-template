@@ -1,0 +1,92 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: centos8
+    image: geerlingguy/docker-centos8-ansible
+    command: "/lib/systemd/systemd"
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+    pre_build_image: true
+  - name: debian10
+    image: geerlingguy/docker-debian10-ansible
+    command: "/lib/systemd/systemd"
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+    pre_build_image: true
+  - name: debian9
+    image: geerlingguy/docker-debian9-ansible
+    command: "/lib/systemd/systemd"
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+    pre_build_image: true
+  - name: ubuntu2004
+    image: geerlingguy/docker-ubuntu2004-ansible
+    command: "/lib/systemd/systemd"
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+    pre_build_image: true
+  - name: ubuntu1804
+    image: geerlingguy/docker-ubuntu1804-ansible
+    command: "/lib/systemd/systemd"
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+    pre_build_image: true
+  - name: fedora32
+    image: geerlingguy/docker-fedora32-ansible
+    command: "/lib/systemd/systemd"
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+    pre_build_image: true
+  - name: fedora31
+    image: geerlingguy/docker-fedora31-ansible
+    command: "/lib/systemd/systemd"
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+    pre_build_image: true
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
