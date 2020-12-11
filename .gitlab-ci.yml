@@ -64,18 +64,15 @@ git-merge-to-master:
     - dev
   allow_failure: false
   before_script:
-    - >-
-      which ssh-agent ||
-      ( apt-get update -y && apt-get install openssh-client git -y )
-    - eval $(ssh-agent -s)
-    - ssh-add <(echo "$GIT_SSH_PRIV_KEY")
     - git config --global user.email "robot@leitnet.at"
     - git config --global user.name "Mr. Robot"
     - mkdir -p ~/.ssh
     - ssh-keyscan gitlab.com >> gitlab-known-hosts
     - cat gitlab-known-hosts >> ~/.ssh/known_hosts
+    - echo "$CI_REPOSITORY_URL"
+    - echo "$CI_PROJECT_URL"
   script:
-    - git clone https://gitlab.com/ansible44/ansible-role-template
+    - git clone https://${CI_DEPLOY_USER}:${CI_DEPLOY_PASSWORD}:@${CI_REPOSITORY_URL}
     - cd ${CI_PROJECT_NAME}
     - git merge origin/dev
     - git push origin master
