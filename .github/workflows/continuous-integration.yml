@@ -7,8 +7,6 @@ name: Continuous Integration
       - "**/LICENSE"
   push:
     branches:
-      - master
-      - dev
     paths-ignore:
       - "**/README.md"
       - "**/LICENSE"
