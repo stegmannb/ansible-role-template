@@ -1,6 +1,7 @@
 # Ansible Template Role
 
-[![pipeline status](https://gitlab.com/ansible44/ansible-role-template/badges/master/pipeline.svg)](https://gitlab.com/ansible44/ansible-role-template/-/commits/master)
+[![License: MIT](https://img.shields.io/github/license/stegmannb/ansible-role-template)](https://github.com/stegmannb/ansible-role-template/blob/master/LICENSE)
+![Continuous Integration](https://github.com/stegmannb/ansible-role-template/workflows/CI/badge.svg)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 ## Requirements

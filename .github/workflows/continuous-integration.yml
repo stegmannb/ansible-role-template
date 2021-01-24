@@ -1,0 +1,62 @@
+---
+name: Continuous Integration
+"on":
+  pull_request:
+    paths-ignore:
+      - "**/README.md"
+      - "**/LICENSE"
+  push:
+    branches:
+      - master
+      - dev
+    paths-ignore:
+      - "**/README.md"
+      - "**/LICENSE"
+  schedule:
+    - cron: "0 6 * * 5"
+
+defaults:
+  run:
+    working-directory: "stegmannb.template"
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: pre-commit/action@v2.0.0
+
+  molecule:
+    needs:
+      - pre-commit
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - ubuntu2004
+          - ubuntu1804
+          - fedora33
+          - fedora32
+          - debian10
+          - debian9
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          path: "stegmannb.template"
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install test dependencies.
+        run: pip3 install ansible molecule[docker] docker ansible-lint yamllint flake8
+
+      - name: Run Molecule tests.
+        run: molecule test
+        env:
+          PY_COLORS: "1"
+          ANSIBLE_FORCE_COLOR: "1"
+          MOLECULE_DISTRO: ${{ matrix.distro }}

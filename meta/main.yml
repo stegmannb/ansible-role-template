@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Bastian Stegmann
-  description: Setup and configures SSH on the system.
+  description: This is a template for Ansible roles.
   license: MIT
   min_ansible_version: 2.9
   galaxy_tags: []
@@ -16,10 +16,7 @@ galaxy_info:
         - 18.04
     - name: Fedora
       versions:
+        - 33
         - 32
-        - 31
-    - name: CentOS
-      versions:
-        - 8
 
 dependencies: []
