@@ -38,6 +38,9 @@ jobs:
           - debian10
           - debian9
     steps:
+      - name: Cancel an already running workflow.
+        uses: fkirc/skip-duplicate-actions@master
+
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
