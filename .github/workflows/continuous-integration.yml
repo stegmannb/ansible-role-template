@@ -43,13 +43,13 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: "${{ working-directory }}"
+          path: "stegmannb.template"
 
       - name: Molecule
         uses: gofrolist/molecule-action@v2
         with:
           molecule_command: test
-          molecule_working_dir: "${{ working-directory }}"
+          molecule_working_dir: "stegmannb.template"
         env:
           PY_COLORS: "1"
           ANSIBLE_FORCE_COLOR: "1"
