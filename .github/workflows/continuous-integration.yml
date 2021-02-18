@@ -2,13 +2,7 @@
 name: Continuous Integration
 "on":
   pull_request:
-    paths-ignore:
-      - "**/README.md"
-      - "**/LICENSE"
   push:
-    paths-ignore:
-      - "**/README.md"
-      - "**/LICENSE"
   schedule:
     - cron: "0 6 * * 5"
 
