@@ -1,5 +1,6 @@
 # Ansible
 *.retry
+.cache/
 
 # Visual Studio Code
 .vscode/
