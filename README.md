@@ -1,7 +1,7 @@
 # Ansible Template Role
 
 [![License: MIT](https://img.shields.io/github/license/stegmannb/ansible-role-template)](https://github.com/stegmannb/ansible-role-template/blob/master/LICENSE)
-![Continuous Integration](https://github.com/stegmannb/ansible-role-template/workflows/Continuous%20Integration/badge.svg)
+[![Continuous Integration](https://github.com/stegmannb/ansible-role-template/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/stegmannb/ansible-role-template/actions/workflows/continuous-integration.yml)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 ## Requirements
