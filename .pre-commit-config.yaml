@@ -5,7 +5,7 @@ exclude: |
   )$
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.4.0
+    rev: v4.2.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -20,17 +20,17 @@ repos:
       - id: check-executables-have-shebangs
 
   - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.0.1
+    rev: v2.2.3
     hooks:
       - id: add-trailing-comma
 
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.1.9
+    rev: v1.1.14
     hooks:
       - id: remove-tabs
 
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.25.0
+    rev: v1.26.3
     hooks:
       - id: yamllint
         name: yamllint
@@ -51,7 +51,7 @@ repos:
         minimum_pre_commit_version: 0.15.0
 
   - repo: https://github.com/ansible/ansible-lint
-    rev: v4.3.5
+    rev: v6.1.0
     hooks:
       - id: ansible-lint
         name: Ansible-lint
@@ -73,20 +73,21 @@ repos:
         files: ((^|/)vault|vault.y[a]{0,1}ml$|.vault$)
         language: script
 
-  - repo: https://github.com/prettier/pre-commit
-    rev: v2.2.0
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.6.2
     hooks:
       - id: prettier
         name: prettier
-        entry: |
-          prettier
-          --write
-          --list-different
-          --ignore-unknown
+        entry: prettier --write --list-different --ignore-unknown
         language: node
         exclude: |
           (?x)^(
-              .vscode/|
+              known_devices.yaml|
+              automations.yaml|
+              scripts.yaml|
+              node-red/.*.json|
+              node-red/.*.js|
+              .vscode/.*.json|
           )$
 
   - repo: https://github.com/robertdebock/pre-commit
