@@ -1,0 +1,55 @@
+---
+- name: Setup Debian based hosts
+  hosts: debian:ubuntu
+  gather_facts: false
+  tasks:
+    - name: Install python
+      ansible.builtin.raw: >-
+        /bin/bash -c "apt update && apt install -y sudo python3 ca-certificates"
+      changed_when: >
+        'Setting up python3' in _setup.stdout
+      register: _setup
+
+- name: Setup Archlinux based hosts
+  hosts: archlinux
+  gather_facts: false
+  tasks:
+    - name: Install python
+      ansible.builtin.raw: >-
+        /bin/bash -c "pacman -Syu --noconfirm sudo python"
+      changed_when: >
+        'installing python...' in _setup.stdout
+      register: _setup
+
+- name: Setup CentOS based hosts
+  hosts: centos
+  gather_facts: false
+  tasks:
+    - name: Install python
+      ansible.builtin.raw: >-
+        /bin/bash -c "yum install -y sudo python3"
+      changed_when: >
+        not 'Nothing to do.' in _setup.stdout
+      register: _setup
+
+- name: Setup Fedora based hosts
+  hosts: fedora
+  gather_facts: false
+  tasks:
+    - name: Install python
+      ansible.builtin.raw: >-
+        /bin/bash -c "dnf install -y sudo python3"
+      changed_when: >
+        not 'Nothing to do.' in _setup.stdout
+      register: _setup
+
+- name: Setup Alpine Linux based hosts
+  hosts: alpine
+  gather_facts: false
+  tasks:
+    - name: Install python
+      ansible.builtin.raw: >-
+        /bin/sh -c "apk add sudo python3"
+      changed_when: >
+        'Installing' in _setup.stdout
+      register: _setup

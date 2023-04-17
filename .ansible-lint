@@ -1,2 +1,5 @@
-skip_list:
-  - '106'
+---
+exclude_paths:
+  - .cache/
+  - .github/
+  - venv/

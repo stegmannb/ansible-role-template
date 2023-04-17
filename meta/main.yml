@@ -1,22 +1,25 @@
 ---
 galaxy_info:
-  author: stegmannb
-  description: This is a template for Ansible roles.
+  author: Bastian Stegmann
+  namespace: stegmannb
+  description: This is a template repostiory for ansible roles.
+  role_name: template
+
   license: MIT
-  min_ansible_version: 2.9
-  galaxy_tags: []
+
+  min_ansible_version: "2.1"
+
   platforms:
+    - name: ArchLinux
+    - name: Fedora
     - name: Debian
       versions:
         - stretch
         - buster
     - name: Ubuntu
       versions:
-        - 20.04
-        - 18.04
-    - name: Fedora
-      versions:
-        - 33
-        - 32
+        - focal
+        - bionic
 
+  galaxy_tags: []
 dependencies: []

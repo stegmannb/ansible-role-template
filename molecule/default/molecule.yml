@@ -2,21 +2,59 @@
 dependency:
   name: galaxy
 driver:
-  name: podman
+  name: containers
 platforms:
-  - name: instance
-    image: "docker.io/docker pull debian:latest"
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
-    # volumes:
-    #   - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    # privileged: true
-    # pre_build_image: true
-lint: |
-  set -e
-  yamllint .
-  ansible-lint
-  flake8
+  - name: molecule-fedora-37
+    image: docker.io/fedora:37
+    pre_build_image: true
+    groups:
+      - fedora
+  - name: molecule-fedora-36
+    image: docker.io/fedora:36
+    pre_build_image: true
+    groups:
+      - fedora
+  # - name: molecule-alpine-3
+  #   image: docker.io/alpine:3
+  #   pre_build_image: true
+  #   groups:
+  #     - alpine
+  - name: molecule-archlinux
+    image: docker.io/archlinux:latest
+    pre_build_image: true
+    groups:
+      - archlinux
+  - name: molecule-ubuntu-jammy
+    image: docker.io/ubuntu:jammy
+    pre_build_image: true
+    groups:
+      - ubuntu
+  - name: molecule-ubuntu-focal
+    image: docker.io/ubuntu:focal
+    pre_build_image: true
+    groups:
+      - ubuntu
+  - name: molecule-ubuntu-bionic
+    image: docker.io/ubuntu:bionic
+    pre_build_image: true
+    groups:
+      - ubuntu
+  - name: molecule-debian-bullseye
+    image: docker.io/debian:bullseye
+    pre_build_image: true
+    groups:
+      - debian
+  - name: molecule-debian-buster
+    image: docker.io/debian:buster
+    pre_build_image: true
+    groups:
+      - debian
+
 provisioner:
   name: ansible
 verifier:
   name: ansible
+
+lint: |
+  set -e
+  ansible-lint
