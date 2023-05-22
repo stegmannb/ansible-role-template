@@ -1,0 +1,22 @@
+---
+- name: Setup Archlinux based hosts
+  hosts: archlinux
+  gather_facts: false
+  tasks:
+    - name: Install python
+      ansible.builtin.raw: >-
+        /bin/bash -c "sudo pacman -Syu --noconfirm python"
+      changed_when: >
+        'installing python...' in _setup.stdout
+      register: _setup
+
+- name: Setup Alpine Linux based hosts
+  hosts: alpine
+  gather_facts: false
+  tasks:
+    - name: Install python
+      ansible.builtin.raw: >-
+        /bin/sh -c "apk add python3"
+      changed_when: >
+        'Installing' in _setup.stdout
+      register: _setup
