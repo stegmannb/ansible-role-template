@@ -1,0 +1,36 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+    options:
+      memory: 512
+      cpus: 2
+
+platforms:
+  - name: molecule-jammy
+    box: generic/ubuntu2204
+    memory: 1024 # The machine does not start with less memory
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: dhcp
+    groups:
+      - ubuntu
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../resources/converge.yml
+    prepare: ../resources/prepare.yml
+    verify: ../resources/verify.yml
+
+verifier:
+  name: ansible
+
+lint: |
+  set -e
+  ansible-lint

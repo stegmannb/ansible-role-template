@@ -1,0 +1,27 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: containers
+
+platforms:
+  - name: molecule-debian-buster
+    image: docker.io/debian:buster
+    pre_build_image: true
+    groups:
+      - debian
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../resources/converge.yml
+    prepare: ../resources/prepare.yml
+    verify: ../resources/verify.yml
+
+verifier:
+  name: ansible
+
+lint: |
+  set -e
+  ansible-lint

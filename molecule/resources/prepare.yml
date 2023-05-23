@@ -5,7 +5,7 @@
   tasks:
     - name: Install python
       ansible.builtin.raw: >-
-        /bin/bash -c "apt update && apt install -y sudo python3 ca-certificates"
+        /bin/bash -c "{{ '' if ansible_user | default('root') == 'root' else 'sudo' }} apt update && {{ '' if ansible_user | default('root') == 'root' else 'sudo' }} apt install -y sudo python3 ca-certificates"
       changed_when: >
         'Setting up python3' in _setup.stdout
       register: _setup
@@ -16,7 +16,7 @@
   tasks:
     - name: Install python
       ansible.builtin.raw: >-
-        /bin/bash -c "pacman -Syu --noconfirm sudo python"
+        /bin/bash -c "{{ '' if ansible_user | default('root') == 'root' else 'sudo' }} pacman -Syu --noconfirm sudo python"
       changed_when: >
         'installing python...' in _setup.stdout
       register: _setup
@@ -27,7 +27,7 @@
   tasks:
     - name: Install python
       ansible.builtin.raw: >-
-        /bin/bash -c "yum install -y sudo python3"
+        /bin/bash -c "{{ '' if ansible_user | default('root') == 'root' else 'sudo' }} yum install -y sudo python3"
       changed_when: >
         not 'Nothing to do.' in _setup.stdout
       register: _setup
@@ -38,7 +38,7 @@
   tasks:
     - name: Install python
       ansible.builtin.raw: >-
-        /bin/bash -c "dnf install -y sudo python3"
+        /bin/bash -c "{{ '' if ansible_user | default('root') == 'root' else 'sudo' }} dnf install -y sudo python3"
       changed_when: >
         not 'Nothing to do.' in _setup.stdout
       register: _setup
@@ -48,8 +48,8 @@
   gather_facts: false
   tasks:
     - name: Install python
-      ansible.builtin.raw: >-
-        /bin/bash -c "apk add --no-cache sudo python3"
+      ansible.builtin.raw: |
+        /bin/bash -c "{{ '' if ansible_user | default('root') == 'root' else 'sudo' }} apk add --no-cache sudo python3"
       changed_when: >
         'Installing' in _setup.stdout
       register: _setup
