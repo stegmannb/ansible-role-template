@@ -59,11 +59,8 @@ jobs:
           cache-dependency-path: requirements-dev.txt
 
       - name: Run molecule tests
-        uses: gofrolist/molecule-action@v2
-        with:
-          molecule_command: test
-          molecule_args: --scenario-name ${{ matrix.scenario }}
+        run: molecule test --scenario-name ${{ matrix.scenario }}
         env:
           PY_COLORS: "1"
           ANSIBLE_FORCE_COLOR: "1"
-          MOLECULE_CONTAINERS_BACKEND: docker
+          # MOLECULE_CONTAINERS_BACKEND: docker
