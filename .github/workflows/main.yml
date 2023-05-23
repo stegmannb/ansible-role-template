@@ -58,6 +58,9 @@ jobs:
           cache: "pip" # caching pip dependencies
           cache-dependency-path: requirements-dev.txt
 
+      - name: List molecule tests
+        run: molecule list
+
       - name: Run molecule tests
         run: molecule test --scenario-name ${{ matrix.scenario }}
         env:
