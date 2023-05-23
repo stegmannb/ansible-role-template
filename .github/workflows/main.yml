@@ -42,7 +42,7 @@ jobs:
           - vagrant-debian-bullseye
           - vagrant-debian-buster
           - vagrant-ubuntu-focal
-          - vagrant-ubuntu-jammy          
+          - vagrant-ubuntu-jammy
     steps:
       - name: Cancel an already running workflow.
         uses: fkirc/skip-duplicate-actions@master
