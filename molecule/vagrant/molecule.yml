@@ -11,7 +11,7 @@ driver:
       cpus: 2
 
 platforms:
-  - name: test-updaterserver-ubuntu2204
+  - name: molecule-jammy
     box: generic/ubuntu2204
     memory: 1024 # The machine does not start with less memory
     interfaces:
@@ -20,7 +20,7 @@ platforms:
         type: dhcp
     groups:
       - ubuntu
-  - name: test-updaterserver-ubuntu2004
+  - name: molecule-focal
     box: generic/ubuntu2004
     interfaces:
       - auto_config: true
@@ -28,7 +28,7 @@ platforms:
         type: dhcp
     groups:
       - ubuntu
-  - name: test-updaterserver-debian11
+  - name: molecule-bullseye
     box: generic/debian11
     interfaces:
       - auto_config: true
@@ -36,7 +36,7 @@ platforms:
         type: dhcp
     groups:
       - debian
-  - name: test-updaterserver-debian10
+  - name: molecule-buster
     box: generic/debian10
     interfaces:
       - auto_config: true
@@ -44,7 +44,7 @@ platforms:
         type: dhcp
     groups:
       - debian
-  - name: test-updaterserver-arch
+  - name: molecule-archlinux
     box: archlinux/archlinux
     interfaces:
       - auto_config: true
@@ -52,7 +52,7 @@ platforms:
         type: dhcp
     groups:
       - archlinux
-  - name: test-updaterserver-alpine
+  - name: molecule-alpine
     box: generic/alpine312
     interfaces:
       - auto_config: true
@@ -63,6 +63,9 @@ platforms:
 
 provisioner:
   name: ansible
+  playbooks:
+    converge: ../resources/converge.yml
+    verify: ../resources/verify.yml
 
 verifier:
   name: ansible
