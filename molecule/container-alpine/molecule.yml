@@ -7,7 +7,7 @@ driver:
 
 platforms:
   - name: molecule-alpine
-    image: docker.io/alpine:stable
+    image: docker.io/alpine:latest
     pre_build_image: false
     groups:
       - alpine
