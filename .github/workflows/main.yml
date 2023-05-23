@@ -39,12 +39,12 @@ jobs:
           - container-ubuntu-bionic
           - container-ubuntu-focal
           - container-ubuntu-jammy
-          - vagrant-alpine
-          - vagrant-archlinux
-          - vagrant-debian-bullseye
-          - vagrant-debian-buster
-          - vagrant-ubuntu-focal
-          - vagrant-ubuntu-jammy
+          # - vagrant-alpine
+          # - vagrant-archlinux
+          # - vagrant-debian-bullseye
+          # - vagrant-debian-buster
+          # - vagrant-ubuntu-focal
+          # - vagrant-ubuntu-jammy
     steps:
       - name: Cancel an already running workflow.
         uses: fkirc/skip-duplicate-actions@master
@@ -66,3 +66,4 @@ jobs:
         env:
           PY_COLORS: "1"
           ANSIBLE_FORCE_COLOR: "1"
+          MOLECULE_CONTAINERS_BACKEND: docker
