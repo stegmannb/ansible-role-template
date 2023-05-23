@@ -16,7 +16,7 @@
   tasks:
     - name: Install python
       ansible.builtin.raw: >-
-        /bin/sh -c "apk add python3"
+        /bin/bash -c "sudo apk add --no-cache python3"
       changed_when: >
         'Installing' in _setup.stdout
       register: _setup

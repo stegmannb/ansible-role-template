@@ -16,11 +16,11 @@ platforms:
     pre_build_image: true
     groups:
       - fedora
-  # - name: molecule-alpine-3
-  #   image: docker.io/alpine:3
-  #   pre_build_image: true
-  #   groups:
-  #     - alpine
+  - name: molecule-alpine-3
+    image: docker.io/alpine:3
+    pre_build_image: false
+    groups:
+      - alpine
   - name: molecule-archlinux
     image: docker.io/archlinux:latest
     pre_build_image: true
@@ -54,6 +54,10 @@ platforms:
 
 provisioner:
   name: ansible
+  playbooks:
+    converge: ../resources/converge.yml
+    prepare: ../resources/prepare.yml
+    verify: ../resources/verify.yml
 
 verifier:
   name: ansible
