@@ -57,7 +57,7 @@ jobs:
           python-version: "3.11.2"
           cache: "pip" # caching pip dependencies
           cache-dependency-path: requirements-dev.txt
-          
+
       - name: Run molecule tests
         uses: gofrolist/molecule-action@v2
         with:
