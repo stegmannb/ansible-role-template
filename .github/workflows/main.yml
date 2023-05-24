@@ -34,11 +34,11 @@ jobs:
         scenario:
           - container-alpine
           - container-archlinux
-          - container-debian-bullseye
-          - container-debian-buster
-          - container-ubuntu-bionic
-          - container-ubuntu-focal
-          - container-ubuntu-jammy
+          # - container-debian-bullseye
+          # - container-debian-buster
+          # - container-ubuntu-bionic
+          # - container-ubuntu-focal
+          # - container-ubuntu-jammy
     steps:
       - name: Cancel an already running workflow.
         uses: fkirc/skip-duplicate-actions@master
@@ -75,15 +75,15 @@ jobs:
     needs:
       - pre-commit
     runs-on: vagrantlibvirt/vagrant-libvirt
-    # strategy:
-    #   matrix:
-    #     scenario:
-    # - vagrant-alpine
-    # - vagrant-archlinux
-    # - vagrant-debian-bullseye
-    # - vagrant-debian-buster
-    # - vagrant-ubuntu-focal
-    # - vagrant-ubuntu-jammy
+    strategy:
+      matrix:
+        scenario:
+          - vagrant-alpine
+          - vagrant-archlinux
+          # - vagrant-debian-bullseye
+          # - vagrant-debian-buster
+          # - vagrant-ubuntu-focal
+          # - vagrant-ubuntu-jammy
     steps:
       - name: Cancel an already running workflow.
         uses: fkirc/skip-duplicate-actions@master
@@ -112,12 +112,12 @@ jobs:
       #       ${{ runner.os }}-vagrant-
 
       - name: Molecule Run Vagrant
-        run: molecule test --scenario-name vagrant-alpine
+        run: molecule test --scenario-name ${{ github.repository }}
         working-directory: "${{ github.repository }}"
 
       - name: Molecule Action Vagrant
         uses: gofrolist/molecule-action@v2
         with:
           molecule_command: test
-          molecule_args: --scenario-name vagrant-alpine
+          molecule_args: --scenario-name ${{ github.repository }}
           molecule_working_dir: "${{ github.repository }}"
