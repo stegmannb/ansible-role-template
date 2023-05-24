@@ -58,6 +58,10 @@ jobs:
         run: pip install -r requirements-dev.txt
         working-directory: "${{ github.repository }}"
 
+      - name: Molecule Run
+        run: molecule test --scenario-name ${{ matrix.scenario }}
+        working-directory: "${{ github.repository }}"
+
       - name: Molecule
         uses: gofrolist/molecule-action@v2
         with:
