@@ -106,6 +106,14 @@ jobs:
           kvm-ok
         working-directory: "${{ github.repository }}"
 
+      - name: Install VirtualBox
+        run: |
+          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+          wget -O- https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo gpg --dearmor --yes --output /usr/share/keyrings/oracle-virtualbox-2016.gpg
+          sudo apt-get update
+          sudo apt-get install -y virtualbox
+        working-directory: "${{ github.repository }}"
+
       # - name: Cache Vagrant boxes
       #   uses: actions/cache@v2
       #   with:
