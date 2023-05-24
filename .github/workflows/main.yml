@@ -64,6 +64,18 @@ jobs:
         run: pip install -r requirements-dev.txt
         working-directory: "${{ github.repository }}"
 
+      # - name: Cache Vagrant boxes
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.vagrant.d/boxes
+      #     key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-vagrant-
+
+      - name: Install vagrant
+        run: apt-get -y install vagrant
+        working-directory: "${{ github.repository }}"
+
       - name: Molecule Run Vagrant
         run: molecule test --scenario-name vagrant-alpine
         working-directory: "${{ github.repository }}"
