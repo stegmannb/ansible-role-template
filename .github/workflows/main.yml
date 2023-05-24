@@ -58,7 +58,7 @@ jobs:
         with:
           python-version: "3.11.2"
           cache: "pip" # caching pip dependencies
-          cache-dependency-path: requirements-dev.txt
+          cache-dependency-path: "${{ github.repository }}/requirements-dev.txt"
 
       - name: Molecule
         uses: gofrolist/molecule-action@v2
