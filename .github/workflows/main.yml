@@ -58,23 +58,14 @@ jobs:
         run: pip install -r requirements-dev.txt
         working-directory: "${{ github.repository }}"
 
-      - name: Molecule Run
+      - name: Molecule test
         run: molecule test --scenario-name ${{ matrix.scenario }}
         working-directory: "${{ github.repository }}"
-
-      - name: Molecule
-        uses: gofrolist/molecule-action@v2
-        with:
-          molecule_command: test
-          molecule_args: --scenario-name ${{ matrix.scenario }}
-          molecule_working_dir: "${{ github.repository }}"
-        env:
-          ANSIBLE_FORCE_COLOR: "1"
 
   molecule-vagrant:
     needs:
       - pre-commit
-    runs-on: vagrantlibvirt/vagrant-libvirt
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         scenario:
@@ -103,6 +94,14 @@ jobs:
         run: pip install -r requirements-dev.txt
         working-directory: "${{ github.repository }}"
 
+      - name: Install vagrant
+        run: |
+          wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+          sudo apt update
+          sudo apt install vagrant
+        working-directory: "${{ github.repository }}"
+
       # - name: Cache Vagrant boxes
       #   uses: actions/cache@v2
       #   with:
@@ -111,13 +110,6 @@ jobs:
       #     restore-keys: |
       #       ${{ runner.os }}-vagrant-
 
-      - name: Molecule Run Vagrant
+      - name: Molecule test
         run: molecule test --scenario-name ${{ github.repository }}
         working-directory: "${{ github.repository }}"
-
-      - name: Molecule Action Vagrant
-        uses: gofrolist/molecule-action@v2
-        with:
-          molecule_command: test
-          molecule_args: --scenario-name ${{ github.repository }}
-          molecule_working_dir: "${{ github.repository }}"
