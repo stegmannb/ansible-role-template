@@ -25,7 +25,7 @@ jobs:
 
       - uses: pre-commit/action@v2.0.0
 
-  molecule-containers:
+  molecule:
     needs:
       - pre-commit
     runs-on: ubuntu-latest
@@ -34,11 +34,11 @@ jobs:
         scenario:
           - container-alpine
           - container-archlinux
-          # - container-debian-bullseye
-          # - container-debian-buster
-          # - container-ubuntu-bionic
-          # - container-ubuntu-focal
-          # - container-ubuntu-jammy
+          - container-debian-bullseye
+          - container-debian-buster
+          - container-ubuntu-bionic
+          - container-ubuntu-focal
+          - container-ubuntu-jammy
     steps:
       - name: Cancel an already running workflow.
         uses: fkirc/skip-duplicate-actions@master
@@ -62,64 +62,59 @@ jobs:
         run: molecule test --scenario-name ${{ matrix.scenario }}
         working-directory: "${{ github.repository }}"
 
-  molecule-vagrant:
-    needs:
-      - pre-commit
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        scenario:
-          - vagrant-alpine
-          - vagrant-archlinux
-          # - vagrant-debian-bullseye
-          # - vagrant-debian-buster
-          # - vagrant-ubuntu-focal
-          # - vagrant-ubuntu-jammy
-    steps:
-      - name: Cancel an already running workflow.
-        uses: fkirc/skip-duplicate-actions@master
+  # molecule-vagrant:
+  #   needs:
+  #     - pre-commit
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       scenario:
+  #         - vagrant-alpine
+  #         - vagrant-archlinux
+  #         - vagrant-debian-bullseye
+  #         - vagrant-debian-buster
+  #         - vagrant-ubuntu-focal
+  #         - vagrant-ubuntu-jammy
+  #   steps:
+  #     - name: Cancel an already running workflow.
+  #       uses: fkirc/skip-duplicate-actions@master
 
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          path: "${{ github.repository }}"
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #       with:
+  #         path: "${{ github.repository }}"
 
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.11.2"
-          cache: "pip" # caching pip dependencies
-          cache-dependency-path: "${{ github.repository }}/requirements-dev.txt"
+  #     - uses: actions/setup-python@v4
+  #       with:
+  #         python-version: "3.11.2"
+  #         cache: "pip" # caching pip dependencies
+  #         cache-dependency-path: "${{ github.repository }}/requirements-dev.txt"
 
-      - name: Install pip requirements
-        run: pip install -r requirements-dev.txt
-        working-directory: "${{ github.repository }}"
+  #     - name: Install pip requirements
+  #       run: pip install -r requirements-dev.txt
+  #       working-directory: "${{ github.repository }}"
 
-      - name: Install vagrant
-        run: |
-          wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-          sudo apt-get update
-          sudo apt-get install -y vagrant
-        working-directory: "${{ github.repository }}"
+  #     - name: Install vagrant
+  #       run: |
+  #         wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+  #         echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+  #         sudo apt-get update
+  #         sudo apt-get install -y vagrant
+  #       working-directory: "${{ github.repository }}"
 
-      - name: Install VirtualBox
-        # run: |
-        #   wget -O- https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo gpg --dearmor --yes --output /usr/share/keyrings/oracle-virtualbox-2016.gpg
-        #   echo "deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
-        #   sudo apt-get update
-        #   sudo apt-get install -y virtualbox
-        run: |
-          sudo apt-get install -y virtualbox
-        working-directory: "${{ github.repository }}"
+  #     - name: Install VirtualBox
+  #       run: |
+  #         sudo apt-get install -y virtualbox
+  #       working-directory: "${{ github.repository }}"
 
-      # - name: Cache Vagrant boxes
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ~/.vagrant.d/boxes
-      #     key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-vagrant-
+  #     # - name: Cache Vagrant boxes
+  #     #   uses: actions/cache@v2
+  #     #   with:
+  #     #     path: ~/.vagrant.d/boxes
+  #     #     key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
+  #     #     restore-keys: |
+  #     #       ${{ runner.os }}-vagrant-
 
-      - name: Molecule test
-        run: molecule test --scenario-name ${{ matrix.scenario }}
-        working-directory: "${{ github.repository }}"
+  #     - name: Molecule test
+  #       run: molecule test --scenario-name ${{ matrix.scenario }}
+  #       working-directory: "${{ github.repository }}"
