@@ -67,53 +67,53 @@ jobs:
         env:
           ANSIBLE_FORCE_COLOR: "1"
 
-  # molecule-vagrant:
-  #   needs:
-  #     - pre-commit
-  #   runs-on: vagrantlibvirt/vagrant-libvirt
-  #   # strategy:
-  #   #   matrix:
-  #   #     scenario:
-  #   # - vagrant-alpine
-  #   # - vagrant-archlinux
-  #   # - vagrant-debian-bullseye
-  #   # - vagrant-debian-buster
-  #   # - vagrant-ubuntu-focal
-  #   # - vagrant-ubuntu-jammy
-  #   steps:
-  #     - name: Cancel an already running workflow.
-  #       uses: fkirc/skip-duplicate-actions@master
+  molecule-vagrant:
+    needs:
+      - pre-commit
+    runs-on: vagrantlibvirt/vagrant-libvirt
+    # strategy:
+    #   matrix:
+    #     scenario:
+    # - vagrant-alpine
+    # - vagrant-archlinux
+    # - vagrant-debian-bullseye
+    # - vagrant-debian-buster
+    # - vagrant-ubuntu-focal
+    # - vagrant-ubuntu-jammy
+    steps:
+      - name: Cancel an already running workflow.
+        uses: fkirc/skip-duplicate-actions@master
 
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-  #       with:
-  #         path: "${{ github.repository }}"
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: "${{ github.repository }}"
 
-  #     - uses: actions/setup-python@v4
-  #       with:
-  #         python-version: "3.11.2"
-  #         cache: "pip" # caching pip dependencies
-  #         cache-dependency-path: "${{ github.repository }}/requirements-dev.txt"
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11.2"
+          cache: "pip" # caching pip dependencies
+          cache-dependency-path: "${{ github.repository }}/requirements-dev.txt"
 
-  #     - name: Install pip requirements
-  #       run: pip install -r requirements-dev.txt
-  #       working-directory: "${{ github.repository }}"
+      - name: Install pip requirements
+        run: pip install -r requirements-dev.txt
+        working-directory: "${{ github.repository }}"
 
-  #     # - name: Cache Vagrant boxes
-  #     #   uses: actions/cache@v2
-  #     #   with:
-  #     #     path: ~/.vagrant.d/boxes
-  #     #     key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
-  #     #     restore-keys: |
-  #     #       ${{ runner.os }}-vagrant-
+      # - name: Cache Vagrant boxes
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.vagrant.d/boxes
+      #     key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-vagrant-
 
-  #     - name: Molecule Run Vagrant
-  #       run: molecule test --scenario-name vagrant-alpine
-  #       working-directory: "${{ github.repository }}"
+      - name: Molecule Run Vagrant
+        run: molecule test --scenario-name vagrant-alpine
+        working-directory: "${{ github.repository }}"
 
-  #     - name: Molecule Action Vagrant
-  #       uses: gofrolist/molecule-action@v2
-  #       with:
-  #         molecule_command: test
-  #         molecule_args: --scenario-name vagrant-alpine
-  #         molecule_working_dir: "${{ github.repository }}"
+      - name: Molecule Action Vagrant
+        uses: gofrolist/molecule-action@v2
+        with:
+          molecule_command: test
+          molecule_args: --scenario-name vagrant-alpine
+          molecule_working_dir: "${{ github.repository }}"
