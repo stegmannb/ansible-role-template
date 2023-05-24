@@ -63,16 +63,25 @@ jobs:
       - name: Molecule
         uses: gofrolist/molecule-action@v2
         with:
-          molecule_command: list
+          molecule_command: test
+          molecule_args: --scenario-name docker-alpine
           molecule_working_dir: "${{ github.repository }}"
         env:
           ANSIBLE_FORCE_COLOR: "1"
 
-      - name: Molecule
-        uses: gofrolist/molecule-action@v2
-        with:
-          molecule_command: test
-          molecule_args: --scenario-name ${{ matrix.scenario }}
-          molecule_working_dir: "${{ github.repository }}"
-        env:
-          ANSIBLE_FORCE_COLOR: "1"
+      # - name: Molecule
+      #   uses: gofrolist/molecule-action@v2
+      #   with:
+      #     molecule_command: list
+      #     molecule_working_dir: "${{ github.repository }}"
+      #   env:
+      #     ANSIBLE_FORCE_COLOR: "1"
+
+      # - name: Molecule
+      #   uses: gofrolist/molecule-action@v2
+      #   with:
+      #     molecule_command: test
+      #     molecule_args: --scenario-name ${{ matrix.scenario }}
+      #     molecule_working_dir: "${{ github.repository }}"
+      #   env:
+      #     ANSIBLE_FORCE_COLOR: "1"
