@@ -29,22 +29,22 @@ jobs:
     needs:
       - pre-commit
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        scenario:
-          - container-alpine
-          - container-archlinux
-          - container-debian-bullseye
-          - container-debian-buster
-          - container-ubuntu-bionic
-          - container-ubuntu-focal
-          - container-ubuntu-jammy
-          # - vagrant-alpine
-          # - vagrant-archlinux
-          # - vagrant-debian-bullseye
-          # - vagrant-debian-buster
-          # - vagrant-ubuntu-focal
-          # - vagrant-ubuntu-jammy
+    # strategy:
+    #   matrix:
+    #     scenario:
+    #       - container-alpine
+    #       - container-archlinux
+    #       - container-debian-bullseye
+    #       - container-debian-buster
+    #       - container-ubuntu-bionic
+    #       - container-ubuntu-focal
+    #       - container-ubuntu-jammy
+    # - vagrant-alpine
+    # - vagrant-archlinux
+    # - vagrant-debian-bullseye
+    # - vagrant-debian-buster
+    # - vagrant-ubuntu-focal
+    # - vagrant-ubuntu-jammy
     steps:
       - name: Cancel an already running workflow.
         uses: fkirc/skip-duplicate-actions@master
@@ -61,11 +61,8 @@ jobs:
           cache-dependency-path: "${{ github.repository }}/requirements-dev.txt"
 
       - name: Molecule
-        uses: gofrolist/molecule-action@v2
-        with:
-          molecule_command: test
-          molecule_args: --scenario-name docker-alpine
-          molecule_working_dir: "${{ github.repository }}"
+        run: molecule test --scenario-name docker-alpine
+        working-directory: "${{ github.repository }}"
         env:
           ANSIBLE_FORCE_COLOR: "1"
 
