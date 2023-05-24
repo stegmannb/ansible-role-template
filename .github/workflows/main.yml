@@ -64,16 +64,24 @@ jobs:
         run: pip install -r requirements-dev.txt
         working-directory: "${{ github.repository }}"
 
-      - name: Molecule Run
+      - name: Molecule Run Docker
         run: molecule test --scenario-name docker-alpine
         working-directory: "${{ github.repository }}"
 
-      - name: Molecule Action
-        uses: gofrolist/molecule-action@v2
-        with:
-          molecule_command: test
-          molecule_args: --scenario-name docker-alpine
-          molecule_working_dir: "${{ github.repository }}"
+      - name: Molecule Run Podman
+        run: molecule test --scenario-name podman-alpine
+        working-directory: "${{ github.repository }}"
+
+      - name: Molecule Run Container
+        run: molecule test --scenario-name container-alpine
+        working-directory: "${{ github.repository }}"
+
+      # - name: Molecule Action
+      #   uses: gofrolist/molecule-action@v2
+      #   with:
+      #     molecule_command: test
+      #     molecule_args: --scenario-name docker-alpine
+      #     molecule_working_dir: "${{ github.repository }}"
 
       # - name: Molecule
       #   uses: gofrolist/molecule-action@v2
