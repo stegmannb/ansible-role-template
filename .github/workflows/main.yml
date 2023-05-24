@@ -111,5 +111,5 @@ jobs:
       #       ${{ runner.os }}-vagrant-
 
       - name: Molecule test
-        run: molecule test --scenario-name ${{ github.repository }}
+        run: molecule test --scenario-name ${{ matrix.scenario }}
         working-directory: "${{ github.repository }}"
