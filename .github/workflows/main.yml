@@ -51,18 +51,19 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          path: "${{ github.repository }}"
+        # with:
+        #   path: "${{ github.repository }}"
 
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11.2"
           cache: "pip" # caching pip dependencies
-          cache-dependency-path: "${{ github.repository }}/requirements-dev.txt"
+          cache-dependency-path: requirements-dev.txt
+          # cache-dependency-path: "${{ github.repository }}/requirements-dev.txt"
 
       - name: Molecule
         run: molecule test --scenario-name docker-alpine
-        working-directory: "${{ github.repository }}"
+        # working-directory: "${{ github.repository }}"
         env:
           ANSIBLE_FORCE_COLOR: "1"
 
