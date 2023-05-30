@@ -1,55 +1,50 @@
 ---
-- name: Setup Debian based hosts
-  hosts: debian:ubuntu
+- name: Setup test hosts
+  hosts: all
   gather_facts: false
   tasks:
-    - name: Install python
+    - name: Install Python on Debian based hosts
       ansible.builtin.raw: >-
         /bin/bash -c "{{ '' if ansible_user | default('root') == 'root' else 'sudo' }} apt update && {{ '' if ansible_user | default('root') == 'root' else 'sudo' }} apt install -y sudo python3 ca-certificates"
       changed_when: >
         'Setting up python3' in _setup.stdout
       register: _setup
+      when: |
+        "debian" in group_names
+        or "ubuntu" in group_names
 
-- name: Setup Archlinux based hosts
-  hosts: archlinux
-  gather_facts: false
-  tasks:
-    - name: Install python
+    - name: Install Python on Archlinux based hosts
       ansible.builtin.raw: >-
         /bin/bash -c "{{ '' if ansible_user | default('root') == 'root' else 'sudo' }} pacman -Syu --noconfirm sudo python"
       changed_when: >
         'installing python...' in _setup.stdout
       register: _setup
+      when: |
+        "archlinux" in group_names
 
-- name: Setup CentOS based hosts
-  hosts: centos
-  gather_facts: false
-  tasks:
-    - name: Install python
+    - name: Install Python on CentOS based hosts
       ansible.builtin.raw: >-
         /bin/bash -c "{{ '' if ansible_user | default('root') == 'root' else 'sudo' }} yum install -y sudo python3"
       changed_when: >
         not 'Nothing to do.' in _setup.stdout
       register: _setup
+      when: |
+        "centos" in group_names
 
-- name: Setup Fedora based hosts
-  hosts: fedora
-  gather_facts: false
-  tasks:
-    - name: Install python
+    - name: Install Python on Fedora based hosts
       ansible.builtin.raw: >-
         /bin/bash -c "{{ '' if ansible_user | default('root') == 'root' else 'sudo' }} dnf install -y sudo python3"
       changed_when: >
         not 'Nothing to do.' in _setup.stdout
       register: _setup
+      when: |
+        "fedora" in group_names
 
-- name: Setup Alpine Linux based hosts
-  hosts: alpine
-  gather_facts: false
-  tasks:
-    - name: Install python
+    - name: Install Python on Alpine Linux based hosts
       ansible.builtin.raw: |
         /bin/bash -c "{{ '' if ansible_user | default('root') == 'root' else 'sudo' }} apk add --no-cache sudo python3"
       changed_when: >
         'Installing' in _setup.stdout
       register: _setup
+      when: |
+        "alpine" in group_names
