@@ -58,6 +58,10 @@ jobs:
         run: pip install -r requirements-dev.txt
         working-directory: "${{ github.repository }}"
 
+      - name: Install ansible requirments
+        run: ansible-galaxy install --role-file requirements.yml
+        working-directory: "${{ github.repository }}"
+
       - name: Molecule test
         run: molecule test --scenario-name ${{ matrix.scenario }}
         working-directory: "${{ github.repository }}"
