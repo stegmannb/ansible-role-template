@@ -23,7 +23,7 @@ jobs:
           cache: "pip" # caching pip dependencies
           cache-dependency-path: requirements-dev.txt
 
-      - uses: pre-commit/action@v2.0.0
+      - uses: pre-commit/action@v3.0.0
 
   molecule:
     needs:
