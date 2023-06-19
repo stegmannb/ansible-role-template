@@ -4,7 +4,7 @@ galaxy_info:
   namespace: stegmannb
   description: This is a template repostiory for ansible roles.
   role_name: template
-
+  standalone: true
   license: MIT
 
   min_ansible_version: "2.1"
@@ -20,6 +20,7 @@ galaxy_info:
       versions:
         - focal
         - bionic
+    - name: Alpine
 
   galaxy_tags: []
 dependencies: []
