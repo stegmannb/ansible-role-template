@@ -59,7 +59,7 @@ jobs:
         working-directory: "${{ github.repository }}"
 
       - name: Install ansible requirments
-        run: ansible-galaxy install --role-file requirements.yml
+        run: ansible-galaxy install --role-file requirements-dev.yml
         working-directory: "${{ github.repository }}"
 
       - name: Molecule Version
