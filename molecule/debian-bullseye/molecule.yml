@@ -9,7 +9,7 @@ driver:
 
 platforms:
   - name: molecule-debian-bullseye
-    image: docker.io/debian:bullseye
+    image: ghcr.io/stegmannb/container-debian-ansible:bullseye
     pre_build_image: true
     groups:
       - debian

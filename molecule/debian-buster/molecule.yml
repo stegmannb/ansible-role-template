@@ -9,7 +9,7 @@ driver:
 
 platforms:
   - name: molecule-debian-buster
-    image: docker.io/debian:buster
+    image: ghcr.io/stegmannb/container-debian-ansible:buster
     pre_build_image: true
     groups:
       - debian
