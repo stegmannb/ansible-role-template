@@ -8,8 +8,8 @@ driver:
   name: containers
 
 platforms:
-  - name: molecule-ubuntu-bionic
-    image: docker.io/ubuntu:bionic
+  - name: molecule-ubuntu-systemd-bionic
+    image: ghcr.io/stegmannb/container-ubuntu-ansible:bionic
     pre_build_image: true
     groups:
       - ubuntu

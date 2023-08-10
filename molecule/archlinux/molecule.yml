@@ -8,14 +8,11 @@ driver:
   name: containers
 
 platforms:
-  - name: molecule-ubuntu-systemd-jammy
-    image: docker.io/eniocarboni/docker-ubuntu-systemd:jammy
+  - name: molecule-archlinux
+    image: ghcr.io/stegmannb/container-archlinux-ansible:latest
     pre_build_image: true
-    privileged: true
-    volume_mounts:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
     groups:
-      - ubuntu
+      - archlinux
 
 provisioner:
   name: ansible

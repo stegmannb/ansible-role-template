@@ -1,0 +1,29 @@
+---
+dependency:
+  name: galaxy
+  options:
+    requirements-file: ./molecule/resources/collections.yml
+
+driver:
+  name: containers
+
+platforms:
+  - name: molecule-ubuntu-systemd-focal
+    image: ghcr.io/stegmannb/container-ubuntu-ansible:focal
+    pre_build_image: true
+    groups:
+      - ubuntu
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../resources/converge.yml
+    prepare: ../resources/prepare.yml
+    verify: ../resources/verify.yml
+
+verifier:
+  name: ansible
+
+lint: |
+  set -e
+  ansible-lint

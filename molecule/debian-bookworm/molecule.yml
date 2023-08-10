@@ -8,11 +8,11 @@ driver:
   name: containers
 
 platforms:
-  - name: molecule-ubuntu-focal
-    image: docker.io/ubuntu:focal
+  - name: molecule-debian-bookworm
+    image: ghcr.io/stegmannb/container-debian-ansible:bookworm
     pre_build_image: true
     groups:
-      - ubuntu
+      - debian
 
 provisioner:
   name: ansible

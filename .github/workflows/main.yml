@@ -32,13 +32,21 @@ jobs:
     strategy:
       matrix:
         scenario:
-          - container-alpine
-          - container-archlinux
-          - container-debian-bullseye
-          - container-debian-buster
-          - container-ubuntu-bionic
-          - container-ubuntu-focal
-          - container-ubuntu-jammy
+          - alpine
+          - archlinux-systemd
+          - archlinux
+          - debian-systemd-bookworm
+          - debian-systemd-bullseye
+          - debian-systemd-buster
+          - debian-bookworm
+          - debian-bullseye
+          - debian-buster
+          - ubuntu-systemd-jammy
+          - ubuntu-systemd-focal
+          - ubuntu-systemd-bionic
+          - ubuntu-jammy
+          - ubuntu-focal
+          - ubuntu-bionic
     steps:
       - name: Cancel an already running workflow.
         uses: fkirc/skip-duplicate-actions@master

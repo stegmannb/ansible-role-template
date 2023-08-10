@@ -8,11 +8,20 @@ driver:
   name: containers
 
 platforms:
-  - name: molecule-ubuntu-jammy
-    image: docker.io/ubuntu:jammy
+  - name: molecule-ubuntu-systemd-jammy
+    image: ghcr.io/stegmannb/container-ubuntu-ansible:jammy
     pre_build_image: true
     groups:
       - ubuntu
+      - systemd
+    command: /lib/systemd/systemd
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
 
 provisioner:
   name: ansible

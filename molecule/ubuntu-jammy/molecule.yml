@@ -8,12 +8,11 @@ driver:
   name: containers
 
 platforms:
-  - name: molecule-debian-bullseye
-    image: docker.io/debian:bullseye
-    pre_build_image: false
+  - name: molecule-ubuntu-systemd-jammy
+    image: ghcr.io/stegmannb/container-ubuntu-ansible:jammy
+    pre_build_image: true
     groups:
-      - debian
-      - systemd
+      - ubuntu
 
 provisioner:
   name: ansible

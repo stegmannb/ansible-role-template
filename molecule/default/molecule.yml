@@ -1,0 +1,66 @@
+---
+dependency:
+  name: galaxy
+  options:
+    requirements-file: ./molecule/resources/collections.yml
+
+driver:
+  name: containers
+
+platforms:
+  - name: molecule-debian-systemd-bookworm
+    image: ghcr.io/stegmannb/container-debian-ansible:bookworm
+    pre_build_image: true
+    groups:
+      - debian
+      - systemd
+    command: /lib/systemd/systemd
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+  - name: molecule-ubuntu-systemd-jammy
+    image: ghcr.io/stegmannb/container-ubuntu-ansible:jammy
+    pre_build_image: true
+    groups:
+      - ubuntu
+      - systemd
+    command: /lib/systemd/systemd
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+  - name: molecule-archlinux-systemd
+    image: ghcr.io/stegmannb/container-archlinux-ansible:latest
+    pre_build_image: true
+    groups:
+      - archlinux
+      - systemd
+    command: /sbin/init
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../resources/converge.yml
+    prepare: ../resources/prepare.yml
+    verify: ../resources/verify.yml
+
+verifier:
+  name: ansible
+
+lint: |
+  set -e
+  ansible-lint

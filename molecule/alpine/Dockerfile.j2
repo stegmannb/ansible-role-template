@@ -1,0 +1,10 @@
+# This template gets rendered using `loop: "{{ molecule_yml.platforms }}"`, so
+# each `item` is an element of platforms list from the molecule.yml file for this scenario.
+FROM {{ item.image }}
+
+RUN apk add --no-cache \
+            sudo \
+            bash \
+            python3 \
+            py3-pip \
+    && ln -sf python3 /usr/bin/python
