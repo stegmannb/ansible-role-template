@@ -12,20 +12,18 @@
   tasks:
     - name: Create a container
       containers.podman.podman_container:
-        name: "{{ container.name }}"
-        image: "{{ container.image }}"
-        privileged: "{{ container.privileged | default(omit) }}"
-        volumes: "{{ container.volumes | default(omit) }}"
-        capabilities: "{{ container.capabilities | default(omit) }}"
-        systemd: "{{ container.systemd | default(omit) }}"
+        name: "{{ item.name }}"
+        image: "{{ item.image }}"
+        privileged: "{{ item.privileged | default(omit) }}"
+        volumes: "{{ item.volumes | default(omit) }}"
+        capabilities: "{{ item.capabilities | default(omit) }}"
+        systemd: "{{ item.systemd | default(omit) }}"
         state: started
-        command: "{{ container.command | default('sleep 1d') }}"
+        command: "{{ item.command | default('sleep 1d') }}"
         # bash -c "while true; do sleep 10000; done"
         log_driver: json-file
       register: result
       loop: "{{ molecule_yml.platforms }}"
-      loop_control:
-        loop_var: container
 
     - name: Print container info
       ansible.builtin.debug:
