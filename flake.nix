@@ -22,6 +22,8 @@
           ansible-lint
           molecule
           podman
+          pre-commit
+          nodePackages.prettier
         ];
         #  ++
         #   (with pkgs.python312Packages; [
