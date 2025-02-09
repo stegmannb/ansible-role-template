@@ -24,6 +24,7 @@
           podman
           pre-commit
           nodePackages.prettier
+          glibcLocales
         ];
         #  ++
         #   (with pkgs.python312Packages; [
@@ -31,6 +32,9 @@
         #     venvShellHook
         #     poetry
         #   ]);
+        # shellHook = ''
+        #   export LC_ALL="C.UTF-8";
+        # '';
       };
     });
   };
