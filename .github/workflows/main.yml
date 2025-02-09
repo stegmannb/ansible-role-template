@@ -61,7 +61,7 @@ jobs:
           path: "${{ github.repository }}"
 
       - name: Podman install
-        run: apt-get update && apt-get install --yes podman
+        run: sudo apt-get update && sudo apt-get install --yes podman
         env:
           DEBIAN_FRONTEND: noninteractive
         working-directory: "${{ github.repository }}"
