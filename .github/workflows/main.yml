@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          path: "${{ github.repository }}"
 
       - name: Install Nix
         uses: cachix/install-nix-action@v17
@@ -26,6 +28,7 @@ jobs:
 
       - name: Run pre-commit
         run: nix develop --command pre-commit run --all-files
+        working-directory: "${{ github.repository }}"
 
   molecule:
     runs-on: ubuntu-latest
