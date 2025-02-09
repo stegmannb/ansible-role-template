@@ -60,6 +60,16 @@ jobs:
         with:
           path: "${{ github.repository }}"
 
+      - name: Podman install
+        run: apt-get update && apt-get install --yes podman
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        working-directory: "${{ github.repository }}"
+
+      - name: Podman test
+        run: nix develop --quiet --command podman run -it --rm alpine:3 /bin/sh -c "echo 'Hello, World!'"
+        working-directory: "${{ github.repository }}"
+
       - name: Install Nix
         uses: cachix/install-nix-action@v17
         with:
@@ -68,10 +78,6 @@ jobs:
 
       - name: Molecule Version
         run: nix develop --quiet --command molecule --version
-        working-directory: "${{ github.repository }}"
-
-      - name: Podman test
-        run: nix develop --quiet --command podman run -it --rm alpine:3 /bin/sh -c "echo 'Hello, World!'"
         working-directory: "${{ github.repository }}"
 
       - name: Molecule test
