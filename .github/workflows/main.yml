@@ -70,6 +70,12 @@ jobs:
         run: podman run -it --rm alpine:3 /bin/sh -c "echo 'Hello, World!'"
         working-directory: "${{ github.repository }}"
 
+      - uses: nicknovitski/nix-develop@v1
+        
+      - name: Podman test
+        run: podman run -it --rm alpine:3 /bin/sh -c "echo 'Hello, World!'"
+        working-directory: "${{ github.repository }}"
+        
       - name: Install Nix
         uses: cachix/install-nix-action@v17
         with:
@@ -77,11 +83,11 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: Molecule Version
-        run: nix develop --quiet --command molecule --version
+        run: nix develop --quiet --command "molecule --version"
         working-directory: "${{ github.repository }}"
 
       - name: Molecule test
-        run: nix develop --quiet --command molecule test --scenario-name ${{ matrix.scenario }}
+        run: nix develop --quiet --command "molecule test --scenario-name ${{ matrix.scenario }}"
         working-directory: "${{ github.repository }}"
 
   # molecule-vagrant:
