@@ -57,18 +57,14 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          path: "${{ github.repository }}"
 
       - name: Podman install
         run: sudo apt-get update && sudo apt-get install --yes podman
         env:
           DEBIAN_FRONTEND: noninteractive
-        working-directory: "${{ github.repository }}"
 
       - name: Podman test
         run: podman run -it --rm alpine:3 /bin/sh -c "echo 'Hello, World!'"
-        working-directory: "${{ github.repository }}"
 
       - name: Install Nix
         uses: cachix/install-nix-action@v17
@@ -80,15 +76,12 @@ jobs:
         
       - name: Podman test
         run: podman run -it --rm alpine:3 /bin/sh -c "echo 'Hello, World!'"
-        working-directory: "${{ github.repository }}"
         
       - name: Molecule Version
         run: nix develop --quiet --command "molecule --version"
-        working-directory: "${{ github.repository }}"
 
       - name: Molecule test
         run: nix develop --quiet --command "molecule test --scenario-name ${{ matrix.scenario }}"
-        working-directory: "${{ github.repository }}"
 
   # molecule-vagrant:
   #   needs:
