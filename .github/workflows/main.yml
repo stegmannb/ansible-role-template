@@ -37,16 +37,14 @@ jobs:
           - archlinux
           # - debian-systemd-bookworm
           # - debian-systemd-bullseye
-          # - debian-systemd-buster
           - debian-bookworm
           - debian-bullseye
-          - debian-buster
+          # - ubuntu-systemd-noble
           # - ubuntu-systemd-jammy
           # - ubuntu-systemd-focal
-          # - ubuntu-systemd-bionic
+          - ubuntu-noble
           - ubuntu-jammy
           - ubuntu-focal
-          - ubuntu-bionic
     steps:
       - name: Cancel an already running workflow.
         uses: fkirc/skip-duplicate-actions@master
