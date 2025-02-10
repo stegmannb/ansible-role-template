@@ -13,40 +13,40 @@ driver:
 platforms:
   - name: ubuntu-noble
     image: mirror.gcr.io/ubuntu:24.04
-    groups:
-      - test_family_debian
+    vars:
+      ansible_os_family: Debian
   - name: ubuntu-jammy
     image: mirror.gcr.io/ubuntu:22.04
-    groups:
-      - test_family_debian
+    vars:
+      ansible_os_family: Debian
   - name: ubuntu-focal
     image: mirror.gcr.io/ubuntu:20.04
-    groups:
-      - test_family_debian
+    vars:
+      ansible_os_family: Debian
   - name: debian-bookworm
     image: mirror.gcr.io/debian:bookworm
-    groups:
-      - test_family_debian
+    vars:
+      ansible_os_family: Debian
   - name: debian-bullseye
     image: mirror.gcr.io/debian:bullseye
-    groups:
-      - test_family_debian
+    vars:
+      ansible_os_family: Debian
   - name: fedora-40
     image: mirror.gcr.io/fedora:40
-    groups:
-      - test_family_fedora
+    vars:
+      ansible_os_family: RedHat
   - name: fedora-39
     image: mirror.gcr.io/fedora:39
-    groups:
-      - test_family_fedora
+    vars:
+      ansible_os_family: RedHat
   - name: alpine-3
     image: mirror.gcr.io/alpine:3
-    groups:
-      - test_family_alpine
+    vars:
+      ansible_os_family: Alpine
   - name: archlinux
     image: mirror.gcr.io/archlinux:latest
-    groups:
-      - test_family_archlinux
+    vars:
+      ansible_os_family: Archlinux
 
 provisioner:
   name: ansible

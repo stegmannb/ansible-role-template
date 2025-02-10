@@ -50,6 +50,9 @@
                 hosts:
                   "{{ item.name }}":
                     ansible_connection: containers.podman.podman
+          {% for key in item.vars %}
+                    {{ key }}: "{{ item.vars[key] }}"
+          {% endfor %}
       ansible.builtin.set_fact:
         molecule_inventory: >
           {{ molecule_inventory | combine(inventory_partial_yaml | from_yaml, recursive=true) }}
@@ -78,50 +81,12 @@
 # we want to avoid errors like "Failed to create temporary directory"
 - name: Install Python
   hosts: molecule
+  # We disable gather facts because it would fail due to our container not
+  # having python installed. This will not prevent use from running 'raw'
+  # commands. Most molecule users are expected to use containers that already
+  # have python installed in order to avoid notable delays installing it.
   gather_facts: false
   tasks:
-    - name: Install python on debian based distros
-      ansible.builtin.raw: |
-        export DEBIAN_FRONTEND=noninteractive
-        apt-get update
-        apt-get install --yes python3
-      args:
-        executable: /bin/bash
-      register: result
-      changed_when: |
-        "python3 is already the newest version" not in result.stdout
-      when: |
-        "test_family_debian" in group_names
-
-    - name: Install python on fedora based distros
-      ansible.builtin.raw: |
-        dnf install --assumeyes python3
-      args:
-        executable: /bin/bash
-      register: result
-      changed_when: |
-        "Nothing to do" not in result.stdout
-      when: |
-        "test_family_fedora" in group_names
-
-    - name: Install python on Alpine Linux based distros
-      ansible.builtin.raw: |
-        apk add --no-cache python3
-      args:
-        executable: /bin/sh
-      register: result
-      changed_when: |
-        "Installing" in result.stdout
-      when: |
-        "test_family_alpine" in group_names
-
-    - name: Install python on ArchLinux based distros
-      ansible.builtin.raw: |
-        pacman --sync --refresh --noconfirm python
-      args:
-        executable: /bin/bash
-      register: result
-      changed_when: |
-        "installing" in result.stdout
-      when: |
-        "test_family_archlinux" in group_names
+    - name: Setup python
+      ansible.builtin.include_tasks:
+        file: setup-python-{{ ansible_os_family | lower }}.yml

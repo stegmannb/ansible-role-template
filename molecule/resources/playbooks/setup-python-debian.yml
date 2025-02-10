@@ -1,0 +1,11 @@
+---
+- name: Install python on debian based distros
+  ansible.builtin.raw: |
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get install --yes python3
+  args:
+    executable: /bin/bash
+  register: result
+  changed_when: |
+    "python3 is already the newest version" not in result.stdout

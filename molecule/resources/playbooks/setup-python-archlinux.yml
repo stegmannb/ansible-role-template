@@ -1,0 +1,10 @@
+---
+- name: Install python on ArchLinux based distros
+  ansible.builtin.raw: |
+    pacman --sync --refresh --noconfirm python
+  args:
+    executable: /bin/bash
+  register: result
+  changed_when: |
+    "installing" in result.stdout
+  when: ansible_os_family == "Archlinux"

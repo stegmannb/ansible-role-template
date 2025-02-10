@@ -1,0 +1,9 @@
+---
+- name: Install python on fedora based distros
+  ansible.builtin.raw: |
+    dnf install --assumeyes python3
+  args:
+    executable: /bin/bash
+  register: result
+  changed_when: |
+    "Nothing to do" not in result.stdout

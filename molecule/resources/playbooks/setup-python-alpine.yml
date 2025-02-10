@@ -1,0 +1,9 @@
+---
+- name: Install python on Alpine Linux based distros
+  ansible.builtin.raw: |
+    apk add --no-cache python3
+  args:
+    executable: /bin/sh
+  register: result
+  changed_when: |
+    "Installing" in result.stdout
