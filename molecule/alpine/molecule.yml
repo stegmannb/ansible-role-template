@@ -1,0 +1,39 @@
+---
+# this role has no ansible-galaxy dependencies
+dependency:
+  name: galaxy
+  options:
+    requirements-file: requirements.yml
+driver:
+  options:
+    managed: false
+    login_cmd_template: "podman exec -ti {instance} bash"
+    ansible_connection_options:
+      ansible_connection: podman
+platforms:
+  - name: alpine-3
+    image: mirror.gcr.io/alpine:3
+    vars:
+      ansible_os_family: Alpine
+
+provisioner:
+  name: ansible
+  playbooks:
+    create: ../resources/playbooks/create.yml
+    destroy: ../resources/playbooks/destroy.yml
+    converge: ../resources/playbooks/converge.yml
+    prepare: ../resources/playbooks/prepare.yml
+
+scenario:
+  test_sequence:
+    - dependency
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - side_effect
+    - verify
+    - cleanup
+    - destroy
