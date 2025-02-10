@@ -15,38 +15,38 @@ platforms:
     image: mirror.gcr.io/ubuntu:24.04
     vars:
       ansible_os_family: Debian
-  # - name: ubuntu-jammy
-  #   image: mirror.gcr.io/ubuntu:22.04
-  #   vars:
-  #     ansible_os_family: Debian
-  # - name: ubuntu-focal
-  #   image: mirror.gcr.io/ubuntu:20.04
-  #   vars:
-  #     ansible_os_family: Debian
-  # - name: debian-bookworm
-  #   image: mirror.gcr.io/debian:bookworm
-  #   vars:
-  #     ansible_os_family: Debian
-  # - name: debian-bullseye
-  #   image: mirror.gcr.io/debian:bullseye
-  #   vars:
-  #     ansible_os_family: Debian
-  # - name: fedora-40
-  #   image: mirror.gcr.io/fedora:40
-  #   vars:
-  #     ansible_os_family: RedHat
-  # - name: fedora-39
-  #   image: mirror.gcr.io/fedora:39
-  #   vars:
-  #     ansible_os_family: RedHat
-  # - name: alpine-3
-  #   image: mirror.gcr.io/alpine:3
-  #   vars:
-  #     ansible_os_family: Alpine
-  # - name: archlinux
-  #   image: mirror.gcr.io/archlinux:latest
-  #   vars:
-  #     ansible_os_family: Archlinux
+  - name: ubuntu-jammy
+    image: mirror.gcr.io/ubuntu:22.04
+    vars:
+      ansible_os_family: Debian
+  - name: ubuntu-focal
+    image: mirror.gcr.io/ubuntu:20.04
+    vars:
+      ansible_os_family: Debian
+  - name: debian-bookworm
+    image: mirror.gcr.io/debian:bookworm
+    vars:
+      ansible_os_family: Debian
+  - name: debian-bullseye
+    image: mirror.gcr.io/debian:bullseye
+    vars:
+      ansible_os_family: Debian
+  - name: fedora-40
+    image: mirror.gcr.io/fedora:40
+    vars:
+      ansible_os_family: RedHat
+  - name: fedora-39
+    image: mirror.gcr.io/fedora:39
+    vars:
+      ansible_os_family: RedHat
+  - name: alpine-3
+    image: mirror.gcr.io/alpine:3
+    vars:
+      ansible_os_family: Alpine
+  - name: archlinux
+    image: mirror.gcr.io/archlinux:latest
+    vars:
+      ansible_os_family: Archlinux
 
 provisioner:
   name: ansible
