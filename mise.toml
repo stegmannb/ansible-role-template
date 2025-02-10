@@ -4,3 +4,6 @@ uv = 'latest'
 
 [settings]
 python.uv_venv_auto = true
+
+[hooks]
+enter = "uv sync --quiet"

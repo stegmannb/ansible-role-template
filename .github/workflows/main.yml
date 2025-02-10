@@ -16,14 +16,17 @@ jobs:
         with:
           path: "${{ github.repository }}"
 
-      - name: Install Nix
-        uses: cachix/install-nix-action@v17
+
+      - name: Activate mise development environment
+        uses: jdx/mise-action@v2
         with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          experimental: true # [default: false] enable experimental features
+
+      - name: Activate uv development environment
+        run: uv sync
 
       - name: Run pre-commit
-        run: nix develop --quiet --command pre-commit run --all-files
+        run: pre-commit run --all-files
         working-directory: "${{ github.repository }}"
 
   molecule:
