@@ -59,14 +59,10 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
 
-      - name: Install Nix
-        uses: cachix/install-nix-action@v17
+      - name: Activate mise development environment
+        uses: jdx/mise-action@v2
         with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-      - name: Switch to the nix develop environment
-        uses: nicknovitski/nix-develop@v1
+          experimental: true # [default: false] enable experimental features
 
       - name: Molecule Version
         run: molecule --version
