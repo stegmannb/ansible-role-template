@@ -15,15 +15,20 @@ jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/setup-python@v4
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-          python-version: "3.11.2"
-          cache: "pip" # caching pip dependencies
-          cache-dependency-path: requirements-dev.txt
+          path: "${{ github.repository }}"
 
-      - uses: pre-commit/action@v3.0.0
+      - name: Install Nix
+        uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run pre-commit
+        run: nix develop --quiet --command pre-commit run --all-files
+        working-directory: "${{ github.repository }}"
 
   molecule:
     runs-on: ubuntu-latest
@@ -55,22 +60,28 @@ jobs:
         with:
           path: "${{ github.repository }}"
 
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.11.2"
-          cache: "pip" # caching pip dependencies
-          cache-dependency-path: "${{ github.repository }}/requirements-dev.txt"
-
-      - name: Install pip requirements
-        run: pip install -r requirements-dev.txt
+      - name: Podman install
+        run: sudo apt-get update && sudo apt-get install --yes podman
+        env:
+          DEBIAN_FRONTEND: noninteractive
         working-directory: "${{ github.repository }}"
 
+      - name: Podman test
+        run: nix develop --quiet --command podman run -it --rm alpine:3 /bin/sh -c "echo 'Hello, World!'"
+        working-directory: "${{ github.repository }}"
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
       - name: Molecule Version
-        run: molecule --version
+        run: nix develop --quiet --command molecule --version
         working-directory: "${{ github.repository }}"
 
       - name: Molecule test
-        run: molecule test --scenario-name ${{ matrix.scenario }}
+        run: nix develop --quiet --command molecule test --scenario-name ${{ matrix.scenario }}
         working-directory: "${{ github.repository }}"
 
   # molecule-vagrant:
