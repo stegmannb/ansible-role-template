@@ -64,8 +64,8 @@ jobs:
         with:
           experimental: true # [default: false] enable experimental features
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
+      - name: Activate uv development environment
+        run: uv sync
 
       - name: Molecule Version
         run: molecule --version
