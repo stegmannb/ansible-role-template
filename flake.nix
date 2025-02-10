@@ -1,5 +1,5 @@
 {
-  description = "A Nix-flake-based Python development environment";
+  description = "A Nix-flake-based Ansible development environment";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
