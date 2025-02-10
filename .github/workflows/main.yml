@@ -16,11 +16,13 @@ jobs:
         with:
           path: "${{ github.repository }}"
 
-
-      - name: Activate mise development environment
+      - name: Install mise
         uses: jdx/mise-action@v2
         with:
           experimental: true # [default: false] enable experimental features
+
+      - name: Activate mise development environment
+        run: mise activate --shims
 
       - name: Activate uv development environment
         run: uv sync --all-extras --dev
@@ -62,10 +64,13 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
 
-      - name: Activate mise development environment
+      - name: Install mise
         uses: jdx/mise-action@v2
         with:
           experimental: true # [default: false] enable experimental features
+
+      - name: Activate mise development environment
+        run: mise activate --shims
 
       - name: Activate uv development environment
         run: uv sync --all-extras --dev
