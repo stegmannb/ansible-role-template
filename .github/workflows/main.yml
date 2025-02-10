@@ -3,10 +3,6 @@
   pull_request:
   push:
 
-defaults:
-  run:
-    working-directory: "stegmannb.template"
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
