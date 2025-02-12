@@ -23,17 +23,3 @@ provisioner:
     destroy: ../resources/playbooks/destroy.yml
     converge: ../resources/playbooks/converge.yml
     prepare: ../resources/playbooks/prepare.yml
-
-scenario:
-  test_sequence:
-    - dependency
-    - cleanup
-    - destroy
-    - syntax
-    - create
-    - prepare
-    - converge
-    - side_effect
-    - verify
-    - cleanup
-    - destroy
