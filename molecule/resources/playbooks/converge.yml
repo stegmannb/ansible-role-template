@@ -11,6 +11,13 @@
 - name: Converge
   hosts: molecule
   tasks:
+    - name: Debug
+      ansible.builtin.copy:
+        dest: facts-{{ inventory_hostname }}.json
+        content: "{{ ansible_facts | to_nice_json }}"
+      delegate_to: localhost
+      changed_when: false
+
     - name: Run the role
       ansible.builtin.import_role:
         name: stegmannb.template
