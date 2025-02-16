@@ -11,9 +11,8 @@ driver:
     ansible_connection_options:
       ansible_connection: podman
 platforms:
-  - name: ubuntu-noble-systemd
-    image: ubuntu-noble-systemd
-    base_image: docker.io/ubuntu:20.04
+  - name: build-ubuntu-noble-systemd
+    image: docker.io/ubuntu:20.04
     groups:
       - debian
       - systemd
@@ -31,7 +30,7 @@ platforms:
 provisioner:
   name: ansible
   playbooks:
-    create: ../resources/playbooks/build-create.yml
-    destroy: ../resources/playbooks/build-destroy.yml
+    create: ../resources/playbooks/create.yml
+    destroy: ../resources/playbooks/destroy.yml
     converge: ../resources/playbooks/converge.yml
     prepare: ../resources/playbooks/prepare.yml

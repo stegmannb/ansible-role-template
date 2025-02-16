@@ -23,3 +23,15 @@
       ansible.builtin.file:
         path: "{{ molecule_ephemeral_directory }}/inventory/molecule_inventory.yml"
         state: absent
+
+    - name: Check if the Containerfile exists
+      ansible.builtin.stat:
+        path: "../../{{ molecule_yml.scenario.name }}/Containerfile"
+      register: _containerfile
+
+    - name: Remove the test image
+      containers.podman.podman_image:
+        name: "{{ item.name }}"
+        state: absent
+      loop: "{{ molecule_yml.platforms }}"
+      when: _containerfile.stat.exists

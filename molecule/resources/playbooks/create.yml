@@ -13,22 +13,23 @@
   tasks:
     - name: Check if the Containerfile exists
       ansible.builtin.stat:
-        path: ../../{{ item.image }}
+        path: "../../{{ molecule_yml.scenario.name }}/Containerfile"
       register: _containerfile
+      delegate_to: localhost
 
     - name: Build the test container
       containers.podman.podman_image:
-        name: "{{ item.image }}"
-        path: ../../{{ item.image }}
+        name: "{{ item.name }}"
+        path: ../../{{ molecule_yml.scenario.name }}
         build:
-          extra_args: "--build-arg base_image={{ item.base_image }}"
+          extra_args: "--build-arg image={{ item.image }}"
       loop: "{{ molecule_yml.platforms }}"
       when: _containerfile.stat.exists
 
     - name: Create a container
       containers.podman.podman_container:
         name: "{{ item.name }}"
-        image: "{{ item.image }}"
+        image: "{{ item.name if _containerfile.stat.exists else item.image }}"
         privileged: "{{ item.privileged | default(omit) }}"
         volumes: "{{ item.volumes | default(omit) }}"
         capabilities: "{{ item.capabilities | default(omit) }}"
